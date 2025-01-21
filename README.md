@@ -1,17 +1,17 @@
-# $CGPT Token Circulating Supply Tracker
+# $AWARE Token Circulating Supply Tracker
 
-##### $CGPT Supply Dashboard (default):
-https://supply.chaingpt.org
+##### $AWARE Supply Dashboard (default):
+https://x/
 
 #### Endpoints:
 ##### Circulating Supply: 
-https://supply.chaingpt.org/supply
+https://x/supply
 
-##### Total Burnt CGPT Tokens: 
-https://supply.chaingpt.org/burn
+##### Total Burnt AWARE Tokens: 
+https://x/burn
 
 ##### TotalSupply - Burnt: 
-https://supply.chaingpt.org/totalsupply
+https://x/totalsupply
 
 ## How To Deploy
 1- Fork this repo <br> 

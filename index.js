@@ -10,94 +10,119 @@ const port = 3000;
 // BSCSCAN API Key (ENV)
 const apiKey = process.env.BSCSCAN_API_KEY;
 
-// Contract address of SDM token (ENV)
+// Contract address of AWARE token (ENV)
 const cgptContractAddress = process.env.CGPT_CONTRACT_ADDRESS;
 
-// Maximum Supply of SDM token (ENV)
+// Maximum Supply of AWARE token (ENV)
 const MaxSupply = process.env.CGPT_MAX_SUPPLY;
 
 const cache = new NodeCache({ stdTTL: 600 }); // Set the cache expiration time to 600 seconds (10 minutes)
 
 // List of contract addresses with additional information
-const contractAddresses = [
+const contractAddresses = 
+[
   {
-    address: '0x2234a8b8801a455F5E3fC53B597062bB9b1E9d15',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Seed Round (ref: tokenomics)', 
+    address: '0x30148Ff5C52D706eca2daFE6103A0e8Cfc00A6f1',
+    chain: 'BNB Chain',
+    type: '[Public] ChainGPT Pad IDO Sale',
+    wallet: 'ChainGPT Pad - CGPT',
   },
   {
-    address: '0x574997D4e07476954c7BBDAa6f785eeB3A5A9c42',
-    chain: 'BSC',
-    type: 'ChainGPT Pad Vesting',
-    wallet: 'Private Round (ref: tokenomics)', 
+    address: '0xBA5246d78D8638Dd40D3a3C908CF92F8dC0769a1',
+    chain: 'BNB Chain',
+    type: '[Public] DegenPad IDO Sale',
+    wallet: 'DegenPad - CGPT',
   },
   {
-    address: '0x59779C59F473cF53fcE9ef60439f9Bf83E4A3b26',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Strategic Round (ref: tokenomics)', 
+    address: '0x9fD9b062e80a3e8a4e672b28997cDa0331Aa7EC6',
+    chain: 'BNB Chain',
+    type: '[Private] ChainGPT Pad Private Sale',
+    wallet: 'ChainGPT Pad - CGPT',
   },
   {
-    address: '0xD196dc2aa8C4c1d392830488aC9833451b84cB7b',
-    chain: 'BSC',
-    type: 'ChainGPT Pad Vesting',
-    wallet: 'Public (IDO) Round (ref: tokenomics)', 
+    address: '0x9c6d6cb058083F40a4f024bc15Fd528BC6b020B3',
+    chain: 'BNB Chain',
+    type: '[Private] ChainGPT Labs Investment Tokens $300k',
+    wallet: 'TeamFinance - CGPT',
   },
   {
-    address: '0xdCfd1F3Aeea3369bC55B8a3beEE94d9FD5D96Ed2',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Liquidity Round (ref: tokenomics)', 
+    address: '0x0D75540DFa0be7b15C2b01Bd4F2E26d93D8b3166',
+    chain: 'BNB Chain',
+    type: '[Private] ChainGPT Pad Team Investment $30k',
+    wallet: 'TeamFinance - CGPT',
   },
   {
-    address: '0x193364EC780eFD52D89D202Fcecd3Dd2D347925e',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Marketing Round (ref: tokenomics)', 
+    address: '0xD87b86C8d403A43438bAE560AB27907B116B59A8',
+    chain: 'BNB Chain',
+    type: '[Reserve] ChainGPT Labs Incubation Fee Main',
+    wallet: 'TeamFinance - CGPT',
   },
   {
-    address: '0xe8B9988Bede0AA3e9b8659fB5D1b5474195A0c33',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Ecosystem Round (ref: tokenomics)', 
+    address: '0xfA7586b9204de077A8a0D9A3e164D46e394E1147',
+    chain: 'BNB Chain',
+    type: '[Reserve] ChainGPT Labs Incubation Fee Main',
+    wallet: 'TeamFinance - CGPT',
   },
   {
-    address: '0x2411b49688f7ec4b113d2a072164e3690006ea4c',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'DAO Round (ref: tokenomics)', 
+    address: '0x5c58bdb28d6234dA0a85EF22643d441eEC205883',
+    chain: 'BNB Chain',
+    type: '[Marketing] ChainGPT Labs Incubation Fee Main',
+    wallet: 'TeamFinance - CGPT',
   },
   {
-    address: '0x561CCAF59F6394c49F716F7B4de72eACD35E19E4',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Team Round (ref: tokenomics)', 
+    address: '0x9c13B49AC78AC521e2D9410F17586F5381F6616A',
+    chain: 'BNB Chain',
+    type: '[Marketing] ChainGPT Labs Incubation Fee Main',
+    wallet: 'TeamFinance - CGPT',
   },
   {
-    address: '0xa8a50aDbdddf1162920D79ed34629d3B3D77Db2C',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Team Round (ref: tokenomics)', 
+    address: '0x5fE7c1859C37c1a8f820730C004BaFF754a797B2',
+    chain: 'BNB Chain',
+    type: '[Private] Omri $35k, CoinX $25k, $10k Unsold/Nick',
+    wallet: 'TeamFinance - AWARE',
   },
   {
-    address: '0x45306Bc13B202DDc5870143977d2c9657fb3e1AE',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Team Round (ref: tokenomics)', 
+    address: '0x3B4370b8bfa6DBeCdbd51bE6C3475d1811647885',
+    chain: 'BNB Chain',
+    type: '[KOLs] ChainGPT & $AWARE KOLs Sale',
+    wallet: 'TeamFinance - AWARE',
   },
   {
-    address: '0xdC3d9cCA151d241b322EB5388Aa3C6948C3259C6',
-    chain: 'BSC',
-    type: 'TeamFinance Vesting',
-    wallet: 'Seed Round (ref: tokenomics)', 
+    address: '0x7bCa91fAaF5A6Ef0B30eFA2F034f58D6C2489C03',
+    chain: 'BNB Chain',
+    type: '[Marketing] ChainAware Company',
+    wallet: 'TeamFinance - AWARE',
   },
   {
-    address: '0x15317799f8E78B81dccb55B3cD0F4EA190276E96',
-    chain: 'BSC',
-    type: 'ChainGPT Pad Vesting',
-    wallet: 'KOLs Round (ref: tokenomics)', 
+    address: '0xe6dd864bB892aC067900F8DA575EEBe4542A7938',
+    chain: 'BNB Chain',
+    type: '[Airdrop] ChainAware Company',
+    wallet: 'TeamFinance - AWARE',
   },
+  {
+    address: '0x4d2275741b80fefbd1874abe4741849b8043741b',
+    chain: 'BNB Chain',
+    type: '[Liquidity] ChainAware Company',
+    wallet: 'TeamFinance - AWARE',
+  },
+  {
+    address: '0xc31B402a494aeB6b4E46059B87249706305FC995',
+    chain: 'BNB Chain',
+    type: '[Ecosystem] ChainAware Company',
+    wallet: 'TeamFinance - AWARE',
+  },
+  {
+    address: '0x0f82E57699FD884BC13c59844Db614F1A632dcFC',
+    chain: 'BNB Chain',
+    type: '[Staking] ChainAware Company',
+    wallet: 'TeamFinance - AWARE',
+  },
+  {
+    address: '0x25aeD87BEb83e0c4b74BfE8D2aaDe581c6C7f1C0',
+    chain: 'BNB Chain',
+    type: '[Team] ChainAware Company',
+    wallet: 'TeamFinance - AWARE',
+  }
 ];
 
 
@@ -253,15 +278,15 @@ app.get('/', async (req, res) => {
     }
   </style>
   
-  <h1>$SDM Circulating Supply Tracker</h1>
-  <p>Total Supply: 1,000,000,000</p>
-  <p>Burnt $SDM: ${burntTokens.toLocaleString()}</p>
-  <p>Live Circulating Supply of $SDM: ${totalSupply.toLocaleString()} </p>
+  <h1>$AWARE Circulating Supply Tracker</h1>
+  <p>Total Supply: 100,000,000</p>
+  <p>Burnt $AWARE: ${burntTokens.toLocaleString()}</p>
+  <p>Live Circulating Supply of $AWARE: ${totalSupply.toLocaleString()} </p>
   <br><br>
   <table>
     <tr class="title-row">
       <th>Contract Address</th>
-      <th>Balance (SDM)</th>
+      <th>Balance (AWARE)</th>
       <th>Chain</th>
       <th>Type</th>
       <th>Name</th>
@@ -271,7 +296,7 @@ app.get('/', async (req, res) => {
       <td colspan="5"></td>
     </tr>
     <tr class="total-supply-row">
-      <td>$SDM Circulating Supply</td>
+      <td>$AWARE Circulating Supply</td>
       <td>${totalSupply.toLocaleString()}</td>
       <td></td>
       <td></td>
